@@ -923,7 +923,13 @@ function s:CommentLinesToggle(forceNested, firstLine, lastLine)
                 let theLine = s:SwapOutterMultiPartDelimsForPlaceHolders(theLine)
             endif
 
-            let theLine = s:AddLeftDelim(s:Left({'space': 1}), theLine)
+            " let theLine = s:AddLeftDelim(s:Left({'space': 1}), theLine)
+            " Replacement for above line that aligns comments with start of line when applicable
+            if g:NERDAlignCommentToggle
+                let theLine = s:AddLeftDelimAligned(s:Left({'space': 1}), theLine, 0)
+            else
+                let theLine = s:AddLeftDelim(s:Left({'space': 1}), theLine)
+            endif
             let theLine = s:AddRightDelim(s:Right({'space': 1}), theLine)
         endif
 
